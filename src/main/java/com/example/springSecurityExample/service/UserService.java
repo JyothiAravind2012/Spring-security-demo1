@@ -12,13 +12,13 @@ import com.example.springSecurityExample.repo.UserRepos;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
 	private UserRepos userRepo;
-	
+
 	@Autowired
 	private AuthenticationManager authManager;
-	
+
 	@Autowired
 	private JwtService jwtService;
 
@@ -29,9 +29,9 @@ public class UserService {
 
 	public String verify(User user) {
 		System.out.println(user);
-		Authentication authentication = authManager.authenticate
-				(new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword()));
-		if(authentication.isAuthenticated()) {
+		Authentication authentication = authManager
+				.authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword()));
+		if (authentication.isAuthenticated()) {
 			return jwtService.generateToken(user.getUserName());
 		}
 		return "Fail";
